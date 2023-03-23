@@ -12,10 +12,11 @@
 ![](https://i.imgur.com/uDn6Foi.gif)
 
 # 更新內容(3.3.1)
+
 1. 更新程式碼內容，以運行於 MLGame 9.5.*以後版本
 
-
 ---
+
 # 基礎介紹
 
 ## 啟動方式
@@ -73,17 +74,15 @@ game = MazeCar.MazeCar(user_num=1, game_type="MAZE", map=4, time=200, sensor=3, 
     感測器測量的起點為自走車車身外圍，終點為直線距離上最靠的牆壁，實際距離如圖所示
     ![](https://i.imgur.com/QUmpOmz.png)
 
-
 4. 物件大小
     使用Box2D的座標系統，單位為cm，每公分換算為4像素，
     ![](https://i.imgur.com/ghBEVyZ.png)
-
 
     - 自走車 12.5 x 10cm
     - 檢查點 15 x 15cm
     - 終點 15 x 15cm
 4. 座標系統
-    
+
     原點在迷宮區域的左上角，Ｘ軸向右為正，Y軸向上為正。
     ![](https://i.imgur.com/4dcUjgr.png)
 
@@ -158,34 +157,36 @@ class MLPlay:
 
 ```
 
-* `frame`：遊戲畫面更新的編號
-* `L_T_sensor`：玩家自己車子左前超聲波感測器的值，資料型態為數值，單位是公分。
-* `R_T_sensor`：玩家自己車子右前超聲波感測器的值，資料型態為數值
-* `L_sensor`：玩家自己車子左邊超聲波感測器的值，資料型態為數值
-* `F_sensor`：玩家自己車子前面超聲波感測器的值，資料型態為數值
-* `R_sensor`：玩家自己車子右邊超聲波感測器的值，資料型態為數值
-* `x`：玩家自己車子的x座標，該座標系統原點位於迷宮左上角，x軸向右為正。
-* `y`：玩家自己車子的y座標，該座標系統原點位於迷宮左上角，y軸向上為正。
-* `end_x`：終點x座標，該座標系統原點位於迷宮左上角，x軸向右為正。
-* `end_y`：終點y座標，該座標系統原點位於迷宮左上角，y軸向上為正。
-* `angle`：玩家自己車子的朝向，車子向上為0度，數值逆時鐘遞增至360
-* `status`： 目前遊戲的狀態
-    - `GAME_ALIVE`：遊戲進行中
-    - `GAME_PASS`：遊戲通關
-    - `GAME_OVER`：遊戲結束
+- `frame`：遊戲畫面更新的編號
+- `L_T_sensor`：玩家自己車子左前超聲波感測器的值，資料型態為數值，單位是公分。
+- `R_T_sensor`：玩家自己車子右前超聲波感測器的值，資料型態為數值
+- `L_sensor`：玩家自己車子左邊超聲波感測器的值，資料型態為數值
+- `F_sensor`：玩家自己車子前面超聲波感測器的值，資料型態為數值
+- `R_sensor`：玩家自己車子右邊超聲波感測器的值，資料型態為數值
+- `x`：玩家自己車子的x座標，該座標系統原點位於迷宮左上角，x軸向右為正。
+- `y`：玩家自己車子的y座標，該座標系統原點位於迷宮左上角，y軸向上為正。
+- `end_x`：終點x座標，該座標系統原點位於迷宮左上角，x軸向右為正。
+- `end_y`：終點y座標，該座標系統原點位於迷宮左上角，y軸向上為正。
+- `angle`：玩家自己車子的朝向，車子向上為0度，數值逆時鐘遞增至360
+- `status`： 目前遊戲的狀態
+  - `GAME_ALIVE`：遊戲進行中
+  - `GAME_PASS`：遊戲通關
+  - `GAME_OVER`：遊戲結束
 
 座標資訊請參考 `座標系統` 章節
+
 ## 動作指令
 
 - 在 update() 最後要回傳一個字典，資料型態如下。
+
     ```python
     {
             'left_PWM': 0,
             'right_PWM': 0
     }
     ```
-    其中`left_PWM`與`right_PWM`分別代表左輪與右輪的馬力，接受範圍為-255~255。
 
+    其中`left_PWM`與`right_PWM`分別代表左輪與右輪的馬力，接受範圍為-255~255。
 
 ## 遊戲結果
 
@@ -215,27 +216,29 @@ class MLPlay:
 
 - `frame_used`：表示遊戲使用了多少個frame
 - `state`：表示遊戲結束的狀態
-    - `FAIL`：遊戲失敗
-    - `FINISH`：遊戲完成
+  - `FAIL`：遊戲失敗
+  - `FINISH`：遊戲完成
 - `attachment`：紀錄遊戲各個玩家的結果與分數等資訊
-    - `player`：玩家編號
-    - `rank`：排名
-    - `used_frame`：個別玩家到達終點使用的frame數
-    - `frame_limit`：該局遊戲所設定的時間上限
-    - `frame_percent`：
+  - `player`：玩家編號
+  - `rank`：排名
+  - `used_frame`：個別玩家到達終點使用的frame數
+  - `frame_limit`：該局遊戲所設定的時間上限
+  - `frame_percent`：
         ![](https://i.imgur.com/QuI8HmM.png)
-    - `total_checkpoints`：該地圖的總檢查點數量
-    - `check_points`：玩家通過的檢查點數量
-    - `remain_points`：玩家未通過的檢查點數量
-    - `pass_percent`：
+  - `total_checkpoints`：該地圖的總檢查點數量
+  - `check_points`：玩家通過的檢查點數量
+  - `remain_points`：玩家未通過的檢查點數量
+  - `pass_percent`：
         ![](https://i.imgur.com/QuMt5Lu.png)
 
-    - `remain_percent`：
+  - `remain_percent`：
         ![](https://i.imgur.com/mym3FVm.png)
----
-# 地圖製作說明
-[地圖製作教學](map_editor.md)
 
+---
+
+# 地圖製作說明
+
+[地圖製作教學](map_editor.md)
 
 ![](https://i.imgur.com/ubPC8Fp.jpg)
 ---
